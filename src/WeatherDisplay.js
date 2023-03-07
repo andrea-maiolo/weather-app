@@ -23,7 +23,7 @@ const WeatherDisplay = () => {
       );
 
       const secondData = await secondeResponse.json();
-      //console.log(secondData);
+      console.log(secondData);
       setHourlyWeather(secondData);
     };
     fetchWeatherData();
@@ -38,6 +38,7 @@ const WeatherDisplay = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // fetchWeatherData();
   };
 
   if (!weatherData || !hourlyWeather) {
@@ -74,6 +75,7 @@ const WeatherDisplay = () => {
         <button type="submit">
           Search
           <img
+            alt="search icon"
             width={15}
             height={15}
             src="https://www.pinclipart.com/picdir/middle/395-3952831_search-search-icon-vector-png-clipart.png"

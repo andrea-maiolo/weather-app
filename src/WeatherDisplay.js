@@ -6,7 +6,8 @@ const WeatherDisplay = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [hourlyWeather, setHourlyWeather] = useState(null);
   const weatherK = "20f7632ffc2c022654e4093c6947b4f4";
-  const [location, setLocation] = useState("Bologna");
+  const [location, setLocation] = useState("Bologna,IT");
+  const [timeZone, setTimeZone] = useState("");
 
   const fetchWeatherData = async (where) => {
     const response = await fetch(
@@ -16,6 +17,7 @@ const WeatherDisplay = () => {
     const data = await response.json();
     // console.log(data);
     setWeatherData(data);
+    setTimeZone(data.timezone);
     const secondeResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude={alerts}&appid=${weatherK}`
     );
@@ -42,25 +44,6 @@ const WeatherDisplay = () => {
     fetchWeatherData(location);
   };
 
-  if (!weatherData || !hourlyWeather) {
-    return (
-      <div id="loadingPage">
-        Loading, please wait
-        <ReactLoading type="balls" color="#143549" height={100} width={150} />
-      </div>
-    );
-  }
-
-  const { name, main, weather } = weatherData;
-  const { daily, hourly } = hourlyWeather;
-  // console.log(hourlyWeather.daily[0].humidity);
-
-  console.log(weatherData.dt);
-  console.log(weatherData.timezone);
-
-  let timeStamp = weatherData.dt;
-  let timeZone = weatherData.timezone;
-
   const timeZonesWorldWide = {
     PST: -28800,
     MST: -25200,
@@ -81,6 +64,21 @@ const WeatherDisplay = () => {
     NZST: 43200,
   };
 
+  const settingClockToTime = function (timeZone) {
+    console.log("running");
+    console.log(timeZone);
+    Object.keys(timeZonesWorldWide).forEach((key) => {
+      if (timeZonesWorldWide[key] === timeZone) {
+        console.log(key);
+      }
+    });
+  };
+
+  useEffect(() => {
+    console.log(timeZone);
+    settingClockToTime(timeZone);
+  }, [timeZone]);
+
   //here is a list of conversion from timezone offset to uct
   //   Pacific Standard Time (PST): -28800
   // Mountain Standard Time (MST): -25200
@@ -99,6 +97,19 @@ const WeatherDisplay = () => {
   // Japan Standard Time (JST): 32400
   // Australian Eastern Standard Time (AEST): 36000
   // New Zealand Standard Time (NZST): 43200
+
+  if (!weatherData || !hourlyWeather) {
+    return (
+      <div id="loadingPage">
+        Loading, please wait
+        <ReactLoading type="balls" color="#143549" height={100} width={150} />
+      </div>
+    );
+  }
+
+  const { name, main, weather } = weatherData;
+  const { daily, hourly } = hourlyWeather;
+  // console.log(hourlyWeather.daily[0].humidity);
 
   return (
     <div>
@@ -125,7 +136,7 @@ const WeatherDisplay = () => {
         </button>
         <p>
           for a more precise location or if you don't find what you're looking
-          for enter ",COUNTRY" ex. `Rome,it`
+          for enter ",COUNTRY" ex. `Rome,IT`
         </p>
       </form>
       <h2>{name}</h2>
@@ -141,9 +152,11 @@ const WeatherDisplay = () => {
       <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
 
       {/* <h1>{dateAtLocation}</h1> */}
-      <Clock format={"HH:mm:ss"} ticking={true} timezone={"EST"} />
+      <Clock format={"HH:mm:ss"} ticking={true} name={"America/New_York"} />
     </div>
   );
 };
 
 export default WeatherDisplay;
+
+// timezone={"CST"}

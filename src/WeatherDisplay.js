@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
-import Clock from "react-live-clock";
+import fromUnixTime from "date-fns/fromUnixTime";
 
 const WeatherDisplay = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -8,6 +8,8 @@ const WeatherDisplay = () => {
   const weatherK = "20f7632ffc2c022654e4093c6947b4f4";
   const [location, setLocation] = useState("Bologna,IT");
   const [timeZone, setTimeZone] = useState("");
+  const [unixTimestamp, setUnixTimeStamp] = useState("");
+  const [myDate, setMyDate] = useState("");
 
   const fetchWeatherData = async (where) => {
     const response = await fetch(
@@ -18,6 +20,7 @@ const WeatherDisplay = () => {
     // console.log(data);
     setWeatherData(data);
     setTimeZone(data.timezone);
+    setUnixTimeStamp(data.dt);
     const secondeResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude={alerts}&appid=${weatherK}`
     );
@@ -44,59 +47,14 @@ const WeatherDisplay = () => {
     fetchWeatherData(location);
   };
 
-  const timeZonesWorldWide = {
-    PST: -28800,
-    MST: -25200,
-    CST: -21600,
-    EST: -18000,
-    AST: -14400,
-    NST: -12600,
-    GMT: 0,
-    CET: 3600,
-    EET: 7200,
-    MSK: 10800,
-    GST: 14400,
-    IST: 19800,
-    ICT: 25200,
-    CST: 28800,
-    JST: 32400,
-    AEST: 36000,
-    NZST: 43200,
-  };
-
-  const settingClockToTime = function (timeZone) {
-    console.log("running");
-    console.log(timeZone);
-    Object.keys(timeZonesWorldWide).forEach((key) => {
-      if (timeZonesWorldWide[key] === timeZone) {
-        console.log(key);
-      }
-    });
+  const settingClockToTime = function (timeZone, unixTimestamp) {
+    let timeOfZone = fromUnixTime(unixTimestamp + timeZone).toUTCString();
+    setMyDate(timeOfZone);
   };
 
   useEffect(() => {
-    console.log(timeZone);
-    settingClockToTime(timeZone);
-  }, [timeZone]);
-
-  //here is a list of conversion from timezone offset to uct
-  //   Pacific Standard Time (PST): -28800
-  // Mountain Standard Time (MST): -25200
-  // Central Standard Time (CST): -21600
-  // Eastern Standard Time (EST): -18000
-  // Atlantic Standard Time (AST): -14400
-  // Newfoundland Standard Time (NST): -12600
-  // Greenwich Mean Time (GMT): 0
-  // Central European Time (CET): 3600
-  // Eastern European Time (EET): 7200
-  // Moscow Standard Time (MSK): 10800
-  // Gulf Standard Time (GST): 14400
-  // Indian Standard Time (IST): 19800
-  // Indochina Time (ICT): 25200
-  // China Standard Time (CST): 28800
-  // Japan Standard Time (JST): 32400
-  // Australian Eastern Standard Time (AEST): 36000
-  // New Zealand Standard Time (NZST): 43200
+    settingClockToTime(timeZone, unixTimestamp);
+  }, [weatherData]);
 
   if (!weatherData || !hourlyWeather) {
     return (
@@ -151,12 +109,9 @@ const WeatherDisplay = () => {
       />
       <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
 
-      {/* <h1>{dateAtLocation}</h1> */}
-      <Clock format={"HH:mm:ss"} ticking={true} name={"America/New_York"} />
+      <div>{timeZone ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
     </div>
   );
 };
 
 export default WeatherDisplay;
-
-// timezone={"CST"}

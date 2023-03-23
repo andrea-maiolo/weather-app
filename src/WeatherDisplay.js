@@ -9,6 +9,7 @@ const WeatherDisplay = () => {
   const [location, setLocation] = useState("Bologna,IT");
   const [timeZone, setTimeZone] = useState("");
   const [unixTimestamp, setUnixTimeStamp] = useState("");
+  //this is not used at the moment
   const [myDate, setMyDate] = useState("");
 
   const fetchWeatherData = async (where) => {
@@ -19,6 +20,7 @@ const WeatherDisplay = () => {
     const data = await response.json();
     // console.log(data);
     setWeatherData(data);
+    console.log(data.timezone);
     setTimeZone(data.timezone);
     setUnixTimeStamp(data.dt);
     const secondeResponse = await fetch(
@@ -109,7 +111,7 @@ const WeatherDisplay = () => {
       />
       <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
 
-      <div>{timeZone ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
+      <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
     </div>
   );
 };

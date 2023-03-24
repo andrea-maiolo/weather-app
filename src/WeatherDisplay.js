@@ -4,12 +4,11 @@ import fromUnixTime from "date-fns/fromUnixTime";
 
 const WeatherDisplay = () => {
   const [weatherData, setWeatherData] = useState(null);
-  const [hourlyWeather, setHourlyWeather] = useState(null);
+  const [hourlyDailyWeather, setHourlyDailyWeather] = useState(null);
   const weatherK = "20f7632ffc2c022654e4093c6947b4f4";
   const [location, setLocation] = useState("Bologna,IT");
   const [timeZone, setTimeZone] = useState("");
   const [unixTimestamp, setUnixTimeStamp] = useState("");
-  //this is not used at the moment
   const [myDate, setMyDate] = useState("");
 
   const fetchWeatherData = async (where) => {
@@ -20,7 +19,6 @@ const WeatherDisplay = () => {
     const data = await response.json();
     // console.log(data);
     setWeatherData(data);
-    console.log(data.timezone);
     setTimeZone(data.timezone);
     setUnixTimeStamp(data.dt);
     const secondeResponse = await fetch(
@@ -29,7 +27,7 @@ const WeatherDisplay = () => {
 
     const secondData = await secondeResponse.json();
     // console.log(secondData);
-    setHourlyWeather(secondData);
+    setHourlyDailyWeather(secondData);
   };
 
   useEffect(() => {
@@ -58,7 +56,7 @@ const WeatherDisplay = () => {
     settingClockToTime(timeZone, unixTimestamp);
   }, [weatherData]);
 
-  if (!weatherData || !hourlyWeather) {
+  if (!weatherData || !hourlyDailyWeather) {
     return (
       <div id="loadingPage">
         Loading, please wait
@@ -68,8 +66,60 @@ const WeatherDisplay = () => {
   }
 
   const { name, main, weather } = weatherData;
-  const { daily, hourly } = hourlyWeather;
-  // console.log(hourlyWeather.daily[0].humidity);
+  const { daily, hourly } = hourlyDailyWeather;
+
+  // get days of the week
+  const getDaysOfWeek = function (daily) {
+    let d1, d2, d3, d4, d5, d6, d7;
+    let d1day, d2day, d3day, d4day, d5day, d6day, d7day;
+    d1 = new Date(daily[1].dt * 1000);
+    d2 = new Date(daily[2].dt * 1000);
+    d3 = new Date(daily[3].dt * 1000);
+    d4 = new Date(daily[4].dt * 1000);
+    d5 = new Date(daily[5].dt * 1000);
+    d6 = new Date(daily[6].dt * 1000);
+    d7 = new Date(daily[7].dt * 1000);
+    d1day = d1.getDay();
+    d2day = d2.getDay();
+    d3day = d3.getDay();
+    d4day = d4.getDay();
+    d5day = d5.getDay();
+    d6day = d6.getDay();
+    d7day = d7.getDay();
+    switch ((d1day, d2day)) {
+      case 0:
+        d1day = "Sunday";
+        d2day = "Sunday";
+        break;
+      case 1:
+        d1day = "Monday";
+        break;
+      case 2:
+        d1day = "Tuesday";
+        break;
+      case 3:
+        d1day = "Wednesday";
+        break;
+      case 4:
+        d1day = "Thursday";
+        break;
+      case 5:
+        d1day = "Friday";
+        break;
+      case 6:
+        d1day = "Saturday";
+        break;
+    }
+    console.log(d2day);
+    return d1day;
+  };
+  console.log(getDaysOfWeek(daily), "func");
+  // let d1 = new Date(daily[1].dt * 1000);
+  // console.log(d1);
+  // let d1day = d1.getDay();
+  // console.log(d1day);
+
+  //console.log(hourlyDailyWeather.hourly, "horly");
 
   return (
     <div>

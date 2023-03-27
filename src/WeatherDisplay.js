@@ -69,55 +69,81 @@ const WeatherDisplay = () => {
   const { daily, hourly } = hourlyDailyWeather;
 
   // get days of the week
+  let d1day, d2day, d3day, d4day, d5day, d6day, d7day;
+
   const getDaysOfWeek = function (daily) {
-    let d1, d2, d3, d4, d5, d6, d7;
-    let d1day, d2day, d3day, d4day, d5day, d6day, d7day;
+    let d1;
     d1 = new Date(daily[1].dt * 1000);
-    d2 = new Date(daily[2].dt * 1000);
-    d3 = new Date(daily[3].dt * 1000);
-    d4 = new Date(daily[4].dt * 1000);
-    d5 = new Date(daily[5].dt * 1000);
-    d6 = new Date(daily[6].dt * 1000);
-    d7 = new Date(daily[7].dt * 1000);
     d1day = d1.getDay();
-    d2day = d2.getDay();
-    d3day = d3.getDay();
-    d4day = d4.getDay();
-    d5day = d5.getDay();
-    d6day = d6.getDay();
-    d7day = d7.getDay();
-    switch ((d1day, d2day)) {
+
+    switch (d1day) {
       case 0:
         d1day = "Sunday";
-        d2day = "Sunday";
+        d2day = "Monday";
+        d3day = "Tuesday";
+        d4day = "Wednesday";
+        d5day = "Thursday";
+        d6day = "Friday";
+        d7day = "Saturday";
         break;
       case 1:
         d1day = "Monday";
+        d2day = "Tuesday";
+        d3day = "Wednesday";
+        d4day = "Thursday";
+        d5day = "Friday";
+        d6day = "Saturday";
+        d7day = "Sunday";
         break;
       case 2:
         d1day = "Tuesday";
+        d2day = "Wednesday";
+        d3day = "Thursday";
+        d4day = "Friday";
+        d5day = "Saturday";
+        d6day = "Sunday";
+        d7day = "Monday";
         break;
       case 3:
         d1day = "Wednesday";
+        d2day = "Thursday";
+        d3day = "Friday";
+        d4day = "Saturday";
+        d5day = "Sunday";
+        d6day = "Monday";
+        d7day = "Tuesday";
         break;
       case 4:
         d1day = "Thursday";
+        d2day = "Friday";
+        d3day = "Saturday";
+        d4day = "Sunday";
+        d5day = "Monday";
+        d6day = "Tuesday";
+        d7day = "Wednesday";
         break;
       case 5:
         d1day = "Friday";
+        d2day = "Saturday";
+        d3day = "Sunday";
+        d4day = "Monday";
+        d5day = "Tuesday";
+        d6day = "Wednesday";
+        d7day = "Thursday";
         break;
       case 6:
         d1day = "Saturday";
+        d2day = "Sunday";
+        d3day = "Monday";
+        d4day = "Tuesday";
+        d5day = "Wednesday";
+        d6day = "Thursday";
+        d7day = "Friday";
         break;
     }
-    console.log(d2day);
-    return d1day;
+    return [d1day, d2day, d3day, d4day, d5day, d6day, d7day];
   };
-  console.log(getDaysOfWeek(daily), "func");
-  // let d1 = new Date(daily[1].dt * 1000);
-  // console.log(d1);
-  // let d1day = d1.getDay();
-  // console.log(d1day);
+  getDaysOfWeek(daily);
 
   //console.log(hourlyDailyWeather.hourly, "horly");
 
@@ -162,6 +188,13 @@ const WeatherDisplay = () => {
       <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
 
       <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
+      <div className="nextDaysWeather">
+        <p>{d1day}</p>
+        <p>{Math.floor(daily[0].temp.day - 273.15)}°C</p>
+        <img
+          src={`http://openweathermap.org/img/w/${daily[0].weather[0].icon}.png`}
+        />
+      </div>
     </div>
   );
 };

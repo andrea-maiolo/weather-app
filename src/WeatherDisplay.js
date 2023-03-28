@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 import fromUnixTime from "date-fns/fromUnixTime";
+import Daily from "./Daily";
 
 const WeatherDisplay = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -69,79 +70,89 @@ const WeatherDisplay = () => {
   const { daily, hourly } = hourlyDailyWeather;
 
   // get days of the week
-  let d1day, d2day, d3day, d4day, d5day, d6day, d7day;
 
+  function DailyComponent(dailyArray) {
+    return (
+      <div>
+        {dailyArray.map((day) => (
+          <Daily key={dailyArray[day]} day={day} />
+        ))}
+      </div>
+    );
+  }
+
+  let dailyArray = [];
   const getDaysOfWeek = function (daily) {
     let d1;
     d1 = new Date(daily[1].dt * 1000);
-    d1day = d1.getDay();
+    dailyArray[0] = d1.getDay();
 
-    switch (d1day) {
+    switch (dailyArray[0]) {
       case 0:
-        d1day = "Sunday";
-        d2day = "Monday";
-        d3day = "Tuesday";
-        d4day = "Wednesday";
-        d5day = "Thursday";
-        d6day = "Friday";
-        d7day = "Saturday";
+        dailyArray[0] = "Sunday";
+        dailyArray[1] = "Monday";
+        dailyArray[2] = "Tuesday";
+        dailyArray[3] = "Wednesday";
+        dailyArray[4] = "Thursday";
+        dailyArray[5] = "Friday";
+        dailyArray[6] = "Saturday";
         break;
       case 1:
-        d1day = "Monday";
-        d2day = "Tuesday";
-        d3day = "Wednesday";
-        d4day = "Thursday";
-        d5day = "Friday";
-        d6day = "Saturday";
-        d7day = "Sunday";
+        dailyArray[0] = "Monday";
+        dailyArray[1] = "Tuesday";
+        dailyArray[2] = "Wednesday";
+        dailyArray[3] = "Thursday";
+        dailyArray[4] = "Friday";
+        dailyArray[5] = "Saturday";
+        dailyArray[6] = "Sunday";
         break;
       case 2:
-        d1day = "Tuesday";
-        d2day = "Wednesday";
-        d3day = "Thursday";
-        d4day = "Friday";
-        d5day = "Saturday";
-        d6day = "Sunday";
-        d7day = "Monday";
+        dailyArray[0] = "Tuesday";
+        dailyArray[1] = "Wednesday";
+        dailyArray[2] = "Thursday";
+        dailyArray[3] = "Friday";
+        dailyArray[4] = "Saturday";
+        dailyArray[5] = "Sunday";
+        dailyArray[6] = "Monday";
         break;
       case 3:
-        d1day = "Wednesday";
-        d2day = "Thursday";
-        d3day = "Friday";
-        d4day = "Saturday";
-        d5day = "Sunday";
-        d6day = "Monday";
-        d7day = "Tuesday";
+        dailyArray[0] = "Wednesday";
+        dailyArray[1] = "Thursday";
+        dailyArray[2] = "Friday";
+        dailyArray[3] = "Saturday";
+        dailyArray[4] = "Sunday";
+        dailyArray[5] = "Monday";
+        dailyArray[6] = "Tuesday";
         break;
       case 4:
-        d1day = "Thursday";
-        d2day = "Friday";
-        d3day = "Saturday";
-        d4day = "Sunday";
-        d5day = "Monday";
-        d6day = "Tuesday";
-        d7day = "Wednesday";
+        dailyArray[0] = "Thursday";
+        dailyArray[1] = "Friday";
+        dailyArray[2] = "Saturday";
+        dailyArray[3] = "Sunday";
+        dailyArray[4] = "Monday";
+        dailyArray[5] = "Tuesday";
+        dailyArray[6] = "Wednesday";
         break;
       case 5:
-        d1day = "Friday";
-        d2day = "Saturday";
-        d3day = "Sunday";
-        d4day = "Monday";
-        d5day = "Tuesday";
-        d6day = "Wednesday";
-        d7day = "Thursday";
+        dailyArray[0] = "Friday";
+        dailyArray[1] = "Saturday";
+        dailyArray[2] = "Sunday";
+        dailyArray[3] = "Monday";
+        dailyArray[4] = "Tuesday";
+        dailyArray[5] = "Wednesday";
+        dailyArray[6] = "Thursday";
         break;
       case 6:
-        d1day = "Saturday";
-        d2day = "Sunday";
-        d3day = "Monday";
-        d4day = "Tuesday";
-        d5day = "Wednesday";
-        d6day = "Thursday";
-        d7day = "Friday";
+        dailyArray[0] = "Saturday";
+        dailyArray[1] = "Sunday";
+        dailyArray[2] = "Monday";
+        dailyArray[3] = "Tuesday";
+        dailyArray[4] = "Wednesday";
+        dailyArray[5] = "Thursday";
+        dailyArray[6] = "Friday";
         break;
     }
-    return [d1day, d2day, d3day, d4day, d5day, d6day, d7day];
+    return DailyComponent(dailyArray);
   };
   getDaysOfWeek(daily);
 
@@ -189,11 +200,12 @@ const WeatherDisplay = () => {
 
       <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
       <div className="nextDaysWeather">
-        <p>{d1day}</p>
+        {/* <p>{d1day}</p> */}
         <p>{Math.floor(daily[0].temp.day - 273.15)}°C</p>
         <img
           src={`http://openweathermap.org/img/w/${daily[0].weather[0].icon}.png`}
         />
+        {DailyComponent}
       </div>
     </div>
   );

@@ -68,94 +68,32 @@ const WeatherDisplay = () => {
 
   const { name, main, weather } = weatherData;
   const { daily, hourly } = hourlyDailyWeather;
+  console.log(daily, "whole");
+  const today = daily.shift();
+  console.log(today, "today");
 
-  // get days of the week
+  const dailyArrayWithProperElements = daily.map((day) => {
+    delete day.clouds;
+    delete day.dew_point;
+    delete day.feels_like;
+    delete day.humidity;
+    delete day.moon_phase;
+    delete day.moonrise;
+    delete day.moonset;
+    delete day.pop;
+    delete day.pressure;
+    delete day.sunrise;
+    delete day.sunset;
+    delete day.uvi;
+    delete day.wind_deg;
+    delete day.wind_gust;
+    delete day.wind_speed;
+    // console.log(day, "days");
+  });
 
-  function DailyComponent(dailyArray) {
-    return (
-      <div>
-        {dailyArray.map((day) => (
-          <Daily key={dailyArray[day]} day={day} />
-        ))}
-      </div>
-    );
-  }
-
-  let dailyArray = [];
-  const getDaysOfWeek = function (daily) {
-    let d1;
-    d1 = new Date(daily[1].dt * 1000);
-    dailyArray[0] = d1.getDay();
-
-    switch (dailyArray[0]) {
-      case 0:
-        dailyArray[0] = "Sunday";
-        dailyArray[1] = "Monday";
-        dailyArray[2] = "Tuesday";
-        dailyArray[3] = "Wednesday";
-        dailyArray[4] = "Thursday";
-        dailyArray[5] = "Friday";
-        dailyArray[6] = "Saturday";
-        break;
-      case 1:
-        dailyArray[0] = "Monday";
-        dailyArray[1] = "Tuesday";
-        dailyArray[2] = "Wednesday";
-        dailyArray[3] = "Thursday";
-        dailyArray[4] = "Friday";
-        dailyArray[5] = "Saturday";
-        dailyArray[6] = "Sunday";
-        break;
-      case 2:
-        dailyArray[0] = "Tuesday";
-        dailyArray[1] = "Wednesday";
-        dailyArray[2] = "Thursday";
-        dailyArray[3] = "Friday";
-        dailyArray[4] = "Saturday";
-        dailyArray[5] = "Sunday";
-        dailyArray[6] = "Monday";
-        break;
-      case 3:
-        dailyArray[0] = "Wednesday";
-        dailyArray[1] = "Thursday";
-        dailyArray[2] = "Friday";
-        dailyArray[3] = "Saturday";
-        dailyArray[4] = "Sunday";
-        dailyArray[5] = "Monday";
-        dailyArray[6] = "Tuesday";
-        break;
-      case 4:
-        dailyArray[0] = "Thursday";
-        dailyArray[1] = "Friday";
-        dailyArray[2] = "Saturday";
-        dailyArray[3] = "Sunday";
-        dailyArray[4] = "Monday";
-        dailyArray[5] = "Tuesday";
-        dailyArray[6] = "Wednesday";
-        break;
-      case 5:
-        dailyArray[0] = "Friday";
-        dailyArray[1] = "Saturday";
-        dailyArray[2] = "Sunday";
-        dailyArray[3] = "Monday";
-        dailyArray[4] = "Tuesday";
-        dailyArray[5] = "Wednesday";
-        dailyArray[6] = "Thursday";
-        break;
-      case 6:
-        dailyArray[0] = "Saturday";
-        dailyArray[1] = "Sunday";
-        dailyArray[2] = "Monday";
-        dailyArray[3] = "Tuesday";
-        dailyArray[4] = "Wednesday";
-        dailyArray[5] = "Thursday";
-        dailyArray[6] = "Friday";
-        break;
-    }
-    return DailyComponent(dailyArray);
-  };
-  getDaysOfWeek(daily);
-
+  const dailyDom = daily.map((day) => {
+    return <Daily dt={day.dt} temp={day.temp.day} icon={weather[0].icon} />;
+  });
   //console.log(hourlyDailyWeather.hourly, "horly");
 
   return (
@@ -199,14 +137,14 @@ const WeatherDisplay = () => {
       <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
 
       <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
-      <div className="nextDaysWeather">
-        {/* <p>{d1day}</p> */}
+      {/* <div className="nextDaysWeather">
+        <p>{d1day}</p> 
         <p>{Math.floor(daily[0].temp.day - 273.15)}°C</p>
         <img
           src={`http://openweathermap.org/img/w/${daily[0].weather[0].icon}.png`}
         />
-        {DailyComponent}
-      </div>
+      </div> */}
+      <p>{dailyDom}</p>
     </div>
   );
 };

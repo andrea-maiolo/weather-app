@@ -68,31 +68,18 @@ const WeatherDisplay = () => {
 
   const { name, main, weather } = weatherData;
   const { daily, hourly } = hourlyDailyWeather;
-  console.log(daily, "whole");
-  const today = daily.shift();
-  console.log(today, "today");
+  const dailyArrayWithId = daily.map((obj, index) => ({ ...obj, id: index }));
+  dailyArrayWithId.shift();
 
-  const dailyArrayWithProperElements = daily.map((day) => {
-    delete day.clouds;
-    delete day.dew_point;
-    delete day.feels_like;
-    delete day.humidity;
-    delete day.moon_phase;
-    delete day.moonrise;
-    delete day.moonset;
-    delete day.pop;
-    delete day.pressure;
-    delete day.sunrise;
-    delete day.sunset;
-    delete day.uvi;
-    delete day.wind_deg;
-    delete day.wind_gust;
-    delete day.wind_speed;
-    // console.log(day, "days");
-  });
-
-  const dailyDom = daily.map((day) => {
-    return <Daily dt={day.dt} temp={day.temp.day} icon={weather[0].icon} />;
+  const dailyDom = dailyArrayWithId.map((day) => {
+    return (
+      <Daily
+        key={day.id}
+        dt={day.dt}
+        temp={day.temp.day}
+        icon={weather[0].icon}
+      />
+    );
   });
   //console.log(hourlyDailyWeather.hourly, "horly");
 

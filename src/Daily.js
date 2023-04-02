@@ -33,7 +33,7 @@ function DailyDisplay(props) {
   };
   getDaysOfWeek(props);
   return (
-    <div className="WeeklyWeather">
+    <div className="weeklyWeather">
       <p>{nameOfDay}</p>
       <p>{Math.floor(props.temp - 273.15)}°C</p>
       <img src={`http://openweathermap.org/img/w/${props.icon}.png`} />

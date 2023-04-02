@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 import fromUnixTime from "date-fns/fromUnixTime";
 import Daily from "./Daily";
+import Hourly from "./Hourly";
 
 const WeatherDisplay = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -81,7 +82,20 @@ const WeatherDisplay = () => {
       />
     );
   });
-  //console.log(hourlyDailyWeather.hourly, "horly");
+
+  const hourlyArrayWithId = hourly.map((obj, index) => ({ ...obj, id: index }));
+  hourlyArrayWithId.shift();
+
+  const hourlyDom = hourlyArrayWithId.map((hour) => {
+    return (
+      <Hourly
+        key={hour.id}
+        dt={hour.dt}
+        temp={hour.temp}
+        icon={hour.weather[0].icon}
+      />
+    );
+  });
 
   return (
     <div>
@@ -124,14 +138,8 @@ const WeatherDisplay = () => {
       <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
 
       <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
-      {/* <div className="nextDaysWeather">
-        <p>{d1day}</p> 
-        <p>{Math.floor(daily[0].temp.day - 273.15)}°C</p>
-        <img
-          src={`http://openweathermap.org/img/w/${daily[0].weather[0].icon}.png`}
-        />
-      </div> */}
-      <p>{dailyDom}</p>
+      {/* <p>{dailyDom}</p> */}
+      <p>{hourlyDom}</p>
     </div>
   );
 };

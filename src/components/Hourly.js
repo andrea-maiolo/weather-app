@@ -6,8 +6,8 @@ function DisplayHourly(props) {
 
   const getHourFromProps = function (props) {
     let dateOfHour = new Date(props.dt * 1000);
-    hourOfArray = dateOfHour.getHours();
-    console.log(typeof hourOfArray);
+    hourOfArray = dateOfHour.getHours().toString();
+    hourOfArray = `${hourOfArray}:00`;
     return hourOfArray;
   };
   getHourFromProps(props);

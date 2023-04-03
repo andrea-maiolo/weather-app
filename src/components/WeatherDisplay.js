@@ -139,7 +139,7 @@ const WeatherDisplay = () => {
 
       <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
       {/* <p>{dailyDom}</p> */}
-      <p>{hourlyDom}</p>
+      {/* <p>{hourlyDom}</p> */}
     </div>
   );
 };

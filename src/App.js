@@ -1,9 +1,9 @@
 import React from "react";
-import WeatherDisplay from "./WeatherDisplay";
+import WeatherDisplay from "./components/WeatherDisplay";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <WeatherDisplay />
     </div>
   );

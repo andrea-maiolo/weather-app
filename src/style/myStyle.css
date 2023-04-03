@@ -1,0 +1,104 @@
+/* html {
+  @media (max-width: 1700px) {
+    font-size: 56.25%;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 50%;
+  }
+
+  @media (max-width: 750px) {
+    font-size: 40%;
+  }
+} */
+
+/* body {
+  min-height: 100vh;
+  background-image: linear-gradient(
+      to right,
+      rgba(black, 0.4),
+      rgba(black, 0.4)
+    ),
+    url(./deer_wallpaper.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: color-text;
+  font-family: montserrat, sans-serif;
+} */
+
+body {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background-image: url(./deer_wallpaper.jpg);
+  max-width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+input[type="submit"] {
+  padding: 10px;
+  font-size: 1.2em;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.weather {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+}
+
+.weather-item {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin: 10px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.weather-item h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.weather-item p {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.weather-item img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}

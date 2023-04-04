@@ -19,7 +19,6 @@ const WeatherDisplay = () => {
       { mode: "cors" }
     );
     const data = await response.json();
-    // console.log(data);
     setWeatherData(data);
     setTimeZone(data.timezone);
     setUnixTimeStamp(data.dt);
@@ -28,7 +27,6 @@ const WeatherDisplay = () => {
     );
 
     const secondData = await secondeResponse.json();
-    // console.log(secondData);
     setHourlyDailyWeather(secondData);
   };
 
@@ -41,7 +39,16 @@ const WeatherDisplay = () => {
     valueToCheck =
       valueToCheck.charAt(0).toUpperCase() +
       valueToCheck.slice(1).toLowerCase();
-    setLocation(event.target.value);
+    //check if non letter char are been typed
+    console.log(valueToCheck);
+    const res = /[0-9]/.test(valueToCheck);
+    let res2 = /\W+/g.test(valueToCheck);
+    console.log(res);
+    console.log(res2, "res2");
+
+    //remove spaces
+    let stringWithNoSpaces = valueToCheck.replace(/\s+/g, "");
+    setLocation(stringWithNoSpaces);
   };
 
   const handleSubmit = (event) => {

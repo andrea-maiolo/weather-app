@@ -12,6 +12,7 @@ const WeatherDisplay = () => {
   const [timeZone, setTimeZone] = useState("");
   const [unixTimestamp, setUnixTimeStamp] = useState("");
   const [myDate, setMyDate] = useState("");
+  const [isInputCorrect, setIsInputCorrect] = useState(true);
 
   const fetchWeatherData = async (where) => {
     const response = await fetch(
@@ -39,15 +40,25 @@ const WeatherDisplay = () => {
     valueToCheck =
       valueToCheck.charAt(0).toUpperCase() +
       valueToCheck.slice(1).toLowerCase();
+
     //check if non letter char are been typed
     console.log(valueToCheck);
-    const res = /[0-9]/.test(valueToCheck);
-    let res2 = /\W+/g.test(valueToCheck);
+    let res = /[0-9]/.test(valueToCheck);
+    let res2 = /[\/`¬!"£$%^&*()_+=\-\/|\\<>\~}{@:{\[\];'#.\/]/g.test(
+      valueToCheck
+    );
     console.log(res);
     console.log(res2, "res2");
-
+    console.log(isInputCorrect);
     //remove spaces
     let stringWithNoSpaces = valueToCheck.replace(/\s+/g, "");
+
+    if (res || res2) {
+      return setIsInputCorrect(false);
+    } else {
+      setIsInputCorrect(true);
+    }
+
     setLocation(stringWithNoSpaces);
   };
 
@@ -132,21 +143,35 @@ const WeatherDisplay = () => {
           for enter ",COUNTRY" ex. `Rome,IT`
         </p>
       </form>
-      <h2>{name}</h2>
-      <p>{weather[0].main}</p>
-      <p>{weather[0].description}</p>
-      <p>Temperature: {main.temp}°C</p>
-      <p>Feels like: {main.feels_like}°C</p>
-      <p>Humidity:{main.humidity}%</p>
-      <img
-        src={`http://openweathermap.org/img/w/${weather[0].icon}.png`}
-        alt={weather[0].description}
-      />
-      <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
 
-      <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
-      {/* <p>{dailyDom}</p> */}
-      {/* <p>{hourlyDom}</p> */}
+      <div>
+        {isInputCorrect ? (
+          <div className="info">
+            <h2>{name}</h2>
+            <p>{weather[0].main}</p>
+            <p>{weather[0].description}</p>
+            <p>Temperature: {main.temp}°C</p>
+            <p>Feels like: {main.feels_like}°C</p>
+            <p>Humidity:{main.humidity}%</p>
+            <img
+              src={`http://openweathermap.org/img/w/${weather[0].icon}.png`}
+              alt={weather[0].description}
+            />
+            <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
+
+            <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
+            {/* <p>{dailyDom}</p> */}
+            {/* <p>{hourlyDom}</p> */}
+          </div>
+        ) : (
+          <div>
+            <h2>
+              Input is incorrect, check if it contains numbers or special
+              characters
+            </h2>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

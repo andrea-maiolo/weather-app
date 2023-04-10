@@ -27,7 +27,6 @@ const WeatherDisplay = () => {
     const secondeResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude={alerts}&appid=${weatherK}`
     );
-
     const secondData = await secondeResponse.json();
     setHourlyDailyWeather(secondData);
   };
@@ -36,16 +35,12 @@ const WeatherDisplay = () => {
     fetchWeatherData(location);
   }, [weatherK]);
 
-  console.log(weatherData);
-
   const handleLocationChange = (event) => {
     let valueToCheck = event.target.value;
     valueToCheck =
       valueToCheck.charAt(0).toUpperCase() +
       valueToCheck.slice(1).toLowerCase();
-
     //check if non letter char are been typed
-    console.log(valueToCheck);
     let res = /[0-9]/.test(valueToCheck);
     let res2 = /[\/`¬!"£$%^&*()_+=\-\/|\\<>\~}{@:{\[\];'#.\/]/g.test(
       valueToCheck
@@ -89,6 +84,17 @@ const WeatherDisplay = () => {
   const { daily, hourly } = hourlyDailyWeather;
   const dailyArrayWithId = daily.map((obj, index) => ({ ...obj, id: index }));
   dailyArrayWithId.shift();
+
+  const isThereAnError = weatherData.message;
+  if (!isThereAnError) {
+    console.log("no error");
+  } else {
+    return (
+      <div className="errorInCityPage">
+        Erorr <p>{isThereAnError}</p>
+      </div>
+    );
+  }
 
   const dailyDom = dailyArrayWithId.map((day) => {
     if (day.message) {
@@ -176,8 +182,8 @@ const WeatherDisplay = () => {
                 <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
 
                 <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
-                {/* <p>{dailyDom}</p> */}
-                {/* <p>{hourlyDom}</p> */}
+                <p>{dailyDom}</p>
+                <p>{hourlyDom}</p>
               </div>
             ) : (
               <div>

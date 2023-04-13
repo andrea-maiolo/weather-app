@@ -8,7 +8,7 @@ const WeatherDisplay = () => {
   const weatherK = "20f7632ffc2c022654e4093c6947b4f4";
   const [weatherData, setWeatherData] = useState(null);
   const [hourlyDailyWeather, setHourlyDailyWeather] = useState(null);
-  const [location, setLocation] = useState("Bologna,IT");
+  const [location, setLocation] = useState("");
   const [timezoneFromData, setTimezoneFromData] = useState("");
   const [unixtimestampFromData, setUnixtimestampFromData] = useState("");
   const [myDate, setMyDate] = useState("");
@@ -70,8 +70,14 @@ const WeatherDisplay = () => {
   if (!hourlyDailyWeather) {
     return (
       <div id="loadingPage">
-        Loading, please wait
-        <ReactLoading type="balls" color="#143549" height={100} width={150} />
+        <p id="loadingInfo">Loading, please wait</p>
+        <ReactLoading
+          id="loadingAnimation"
+          type="balls"
+          color="#143549"
+          height={100}
+          width={150}
+        />
       </div>
     );
   }
@@ -92,7 +98,6 @@ const WeatherDisplay = () => {
 
   //check for errors
   if (error) {
-    console.log(error);
     return (
       <div className="formAndAll">
         <form onSubmit={handleSubmit}>

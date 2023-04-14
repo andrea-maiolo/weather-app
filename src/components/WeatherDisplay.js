@@ -8,7 +8,7 @@ const WeatherDisplay = () => {
   const weatherK = "20f7632ffc2c022654e4093c6947b4f4";
   const [weatherData, setWeatherData] = useState(null);
   const [hourlyDailyWeather, setHourlyDailyWeather] = useState(null);
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Bologna,IT");
   const [timezoneFromData, setTimezoneFromData] = useState("");
   const [unixtimestampFromData, setUnixtimestampFromData] = useState("");
   const [myDate, setMyDate] = useState("");
@@ -170,33 +170,33 @@ const WeatherDisplay = () => {
 
   return (
     <div className="main">
-      <div className="formAndAll">
-        <form onSubmit={handleSubmit}>
-          <label>
-            Location:
-            <input
-              type="text"
-              value={location}
-              required
-              minLength="3"
-              maxLength="15"
-              onChange={handleLocationChange}
-            ></input>
-          </label>
-          <button type="submit">
-            Search
+      <div className="forcastForm">
+        <form id="searchForm" onSubmit={handleSubmit}>
+          <label id="labelForcast">Forecast</label>
+          <input
+            id="inputField"
+            type="text"
+            value={location}
+            required
+            minLength="3"
+            maxLength="15"
+            onChange={handleLocationChange}
+            placeholder="Search"
+          ></input>
+          <button id="submitButton" type="submit">
             <img
+              id="searchImg"
               alt="search icon"
               width={15}
               height={15}
               src="https://www.pinclipart.com/picdir/middle/395-3952831_search-search-icon-vector-png-clipart.png"
             />
           </button>
-          <p>
-            for a more precise location or if you don't find what you're looking
-            for enter ",COUNTRY" ex. `Rome,IT`
-          </p>
         </form>
+        <p id="howToSearch">
+          for a more precise location or if you don't find what you're looking
+          for enter ",COUNTRY" ex. `Rome,IT`
+        </p>
       </div>
       <div className="info">
         <h2>{name}</h2>

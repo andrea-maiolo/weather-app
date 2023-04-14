@@ -1,34 +1,38 @@
 /* Default styles for all screens */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f1f1f1;
+  background-image: url(./deer_wallpaper.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-h1 {
-  font-size: 2em;
-  margin: 0 0 10px 0;
+.main {
+  height: 100vh;
+  width: 97vw;
 }
 
 /* Styles for screens smaller than 600px (mobile) */
 @media screen and (max-width: 600px) {
   #loadingPage {
-    height: 95vh;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url(./deer_wallpaper.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
   }
 
   #loadingInfo {
     font-size: larger;
+    font-weight: 700;
   }
 
-  h1 {
-    font-size: 1.5em;
+  .searchForm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
   }
 
   .weather-container {

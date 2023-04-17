@@ -171,7 +171,7 @@ const WeatherDisplay = () => {
   return (
     <div className="main">
       <div className="forcastForm">
-        <form id="searchForm" onSubmit={handleSubmit}>
+        <form className="searchForm" onSubmit={handleSubmit}>
           <label id="labelForcast">Forecast</label>
           <input
             id="inputField"
@@ -198,20 +198,31 @@ const WeatherDisplay = () => {
           for enter ",COUNTRY" ex. `Rome,IT`
         </p>
       </div>
-      <div className="info">
-        <h2>{name}</h2>
-        <p>{weather[0].main}</p>
-        <p>{weather[0].description}</p>
-        <p>Temperature: {main.temp}°C</p>
-        <p>Feels like: {main.feels_like}°C</p>
-        <p>Humidity:{main.humidity}%</p>
+      <div className="weather-container">
+        <h2 id="cityName">{name}</h2>
+        <p id="weather-main">{weather[0].main}</p>
+        <p id="weather-description">{weather[0].description}</p>
+        <p id="weather-temperature">Temperature: {main.temp}°C</p>
+        <p id="weather-feels-like">Feels like: {main.feels_like}°C</p>
+        <p id="weather-humidity">Humidity:{main.humidity}%</p>
         <img
+          id="weather-icon"
           src={`http://openweathermap.org/img/w/${weather[0].icon}.png`}
           alt={weather[0].description}
         />
-        <p>Precipitations: {Math.floor(daily[0].pop * 100)}%</p>
+        <p id="weather-precipitations">
+          Precipitations: {Math.floor(daily[0].pop * 100)}%
+        </p>
 
-        <div>{myDate ? <h1>{myDate}</h1> : <p>loading time</p>}</div>
+        <div className="dateAndTime-container">
+          {myDate ? (
+            <p id="dateOfLocation">{myDate}</p>
+          ) : (
+            <p id="loadingTime">loading time</p>
+          )}
+        </div>
+      </div>
+      <div className="dailyAndHourly-container">
         <p>{dailyDom}</p>
         <p>{hourlyDom}</p>
       </div>

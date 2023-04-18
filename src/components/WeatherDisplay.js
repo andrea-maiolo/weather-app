@@ -58,8 +58,17 @@ const WeatherDisplay = () => {
 
   //this part set the time and date
   const settingClockToTime = function (timeZone, unixTimestamp) {
-    let timeOfZone = fromUnixTime(unixTimestamp + timeZone).toUTCString();
-    setMyDate(timeOfZone);
+    let timeOfZone = fromUnixTime(unixTimestamp + timeZone);
+    // .toUTCString();
+    const options = {
+      weekday: "short",
+      day: "numeric",
+      month: "long",
+      hour: "numeric",
+      minute: "numeric",
+    };
+    const formattedDate = timeOfZone.toLocaleDateString("en-US", options);
+    setMyDate(formattedDate);
   };
 
   useEffect(() => {
@@ -102,7 +111,7 @@ const WeatherDisplay = () => {
       <div className="formAndAll">
         <form onSubmit={handleSubmit}>
           <label>
-            Location:
+            Forecast
             <input
               type="text"
               value={location}
@@ -170,9 +179,9 @@ const WeatherDisplay = () => {
 
   return (
     <div className="main">
-      <div className="forcastForm">
+      <div className="forecastForm">
         <form className="searchForm" onSubmit={handleSubmit}>
-          <label id="labelForcast">Forecast</label>
+          <label id="labelForecast">Forecast</label>
           <input
             id="inputField"
             type="text"
@@ -199,21 +208,24 @@ const WeatherDisplay = () => {
         </p>
       </div>
       <div className="weather-container">
-        <h2 id="cityName">{name}</h2>
-        <p id="weather-main">{weather[0].main}</p>
-        <p id="weather-description">{weather[0].description}</p>
-        <p id="weather-temperature">Temperature: {main.temp}°C</p>
-        <p id="weather-feels-like">Feels like: {main.feels_like}°C</p>
-        <p id="weather-humidity">Humidity:{main.humidity}%</p>
+        <div className="main-info">
+          <h2 id="cityName">{name}</h2>
+          <p id="weather-main">{weather[0].main}</p>
+          <p id="weather-description">{weather[0].description}</p>
+        </div>
+        <div className="secondary-info">
+          <p id="weather-temperature">Temperature: {main.temp}°C</p>
+          <p id="weather-feels-like">Feels like: {main.feels_like}°C</p>
+          <p id="weather-humidity">Humidity:{main.humidity}%</p>
+          <p id="weather-precipitations">
+            Precipitations: {Math.floor(daily[0].pop * 100)}%
+          </p>
+        </div>
         <img
-          id="weather-icon"
+          className="weather-icon"
           src={`http://openweathermap.org/img/w/${weather[0].icon}.png`}
           alt={weather[0].description}
         />
-        <p id="weather-precipitations">
-          Precipitations: {Math.floor(daily[0].pop * 100)}%
-        </p>
-
         <div className="dateAndTime-container">
           {myDate ? (
             <p id="dateOfLocation">{myDate}</p>
@@ -223,10 +235,9 @@ const WeatherDisplay = () => {
         </div>
       </div>
       <div className="dailyAndHourly-container">
-        <p>{dailyDom}</p>
-        <p>{hourlyDom}</p>
+        <div>{dailyDom}</div>
+        <div>{hourlyDom}</div>
       </div>
-      )}
     </div>
   );
 };

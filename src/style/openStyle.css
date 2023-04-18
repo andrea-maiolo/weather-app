@@ -35,20 +35,41 @@ body {
     justify-content: space-evenly;
   }
 
+  #labelForecast {
+    font-weight: 600;
+  }
+
   .weather-container {
+    display: grid;
+    grid-template-areas:
+      "main-info secondary-info"
+      "main-info secondary-info"
+      "weather-icon dateAndTime-container";
+  }
+
+  .main-info {
+    grid-area: main-info;
+    font-weight: 600;
+  }
+
+  .secondary-info {
+    grid-area: secondary-info;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
   }
 
   .weather-icon {
-    width: 75%;
-    max-width: 150px;
+    width: 70%;
+    max-width: 100px;
+    grid-area: weather-icon;
   }
 
-  .weather-details {
-    font-size: 1.2em;
-    margin: 10px 0;
+  .dateAndTime-container {
+    grid-area: dateAndTime-container;
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 600;
   }
 
   .daily-weather-container,

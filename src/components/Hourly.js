@@ -13,9 +13,12 @@ function DisplayHourly(props) {
   getHourFromProps(props);
   return (
     <div className="hourlyWeather">
-      <p>{hourOfArray}</p>
-      <p>{Math.floor(props.temp - 273.15)}°C</p>
-      <img src={`http://openweathermap.org/img/w/${props.icon}.png`} />
+      <p id="hour">{hourOfArray}</p>
+      <p id="temperatureOfHour">{Math.floor(props.temp - 273.15)}°C</p>
+      <img
+        id="iconOfHour"
+        src={`http://openweathermap.org/img/w/${props.icon}.png`}
+      />
     </div>
   );
 }

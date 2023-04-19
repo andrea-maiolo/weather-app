@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 import fromUnixTime from "date-fns/fromUnixTime";
+import format from "date-fns/format";
 import Daily from "./Daily";
 import Hourly from "./Hourly";
 
@@ -58,16 +59,9 @@ const WeatherDisplay = () => {
 
   //this part set the time and date
   const settingClockToTime = function (timeZone, unixTimestamp) {
-    let timeOfZone = fromUnixTime(unixTimestamp + timeZone);
-    // .toUTCString();
-    const options = {
-      weekday: "short",
-      day: "numeric",
-      month: "long",
-      hour: "numeric",
-      minute: "numeric",
-    };
-    const formattedDate = timeOfZone.toLocaleDateString("en-US", options);
+    let timeOfZone = fromUnixTime(unixTimestamp + timeZone).toUTCString();
+    let formattedDate = timeOfZone.split("");
+    formattedDate.splice(22).join();
     setMyDate(formattedDate);
   };
 
@@ -235,8 +229,8 @@ const WeatherDisplay = () => {
         </div>
       </div>
       <div className="dailyAndHourly-container">
-        <div>{dailyDom}</div>
-        <div>{hourlyDom}</div>
+        <div className="hourlyDiv-container">{hourlyDom}</div>
+        <div className="dailyDiv-container">{dailyDom}</div>
       </div>
     </div>
   );

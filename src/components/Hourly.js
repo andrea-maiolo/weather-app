@@ -1,16 +1,21 @@
-import { minutesInHour } from "date-fns";
+import { fromUnixTime } from "date-fns";
 
 function DisplayHourly(props) {
   //get hour
-  let hourOfArray;
 
+  let hourOfArray;
   const getHourFromProps = function (props) {
-    let dateOfHour = new Date(props.dt * 1000);
-    hourOfArray = dateOfHour.getHours().toString();
-    hourOfArray = `${hourOfArray}:00`;
+    let dateAndHour = fromUnixTime(props.dt + props.tz).toUTCString();
+    let arrFormatting = dateAndHour.split("");
+    arrFormatting.splice(0, 17);
+    arrFormatting.splice(5);
+    arrFormatting = arrFormatting.join("");
+
+    hourOfArray = arrFormatting;
     return hourOfArray;
   };
   getHourFromProps(props);
+
   return (
     <div className="hourlyWeather">
       <p id="hour">{hourOfArray}</p>

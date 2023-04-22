@@ -8,25 +8,25 @@ function DailyDisplay(props) {
 
     switch (nameOfDay) {
       case 0:
-        nameOfDay = "Sunday";
+        nameOfDay = "Sun";
         break;
       case 1:
-        nameOfDay = "Monday";
+        nameOfDay = "Mon";
         break;
       case 2:
-        nameOfDay = "Tuesday";
+        nameOfDay = "Tue";
         break;
       case 3:
-        nameOfDay = "Wednesday";
+        nameOfDay = "Wed";
         break;
       case 4:
-        nameOfDay = "Thursday";
+        nameOfDay = "Thu";
         break;
       case 5:
-        nameOfDay = "Friday";
+        nameOfDay = "Fri";
         break;
       case 6:
-        nameOfDay = "Saturday";
+        nameOfDay = "Sat";
         break;
     }
     return nameOfDay;

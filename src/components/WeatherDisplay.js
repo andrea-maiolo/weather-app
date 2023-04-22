@@ -40,13 +40,16 @@ const WeatherDisplay = () => {
         setWeatherData(data);
         setTimezoneFromData(data.timezone);
         setUnixtimestampFromData(data.dt);
-      }
 
-      const secondeResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude={alerts}&appid=${weatherK}`
-      );
-      const secondData = await secondeResponse.json();
-      setHourlyDailyWeather(secondData);
+        const secondeResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=alerts,current,minutely&appid=${weatherK}`
+        );
+
+        // https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+
+        const secondData = await secondeResponse.json();
+        setHourlyDailyWeather(secondData);
+      }
     } catch (err) {
       setError("An error occured, please try again");
       setWeatherData(null);
@@ -137,6 +140,7 @@ const WeatherDisplay = () => {
   //if no error is found deconstruct weatherData and show info
   const { name, main, weather } = weatherData;
   const { daily, hourly } = hourlyDailyWeather;
+
   const dailyArrayWithId = daily.map((obj, index) => ({ ...obj, id: index }));
   dailyArrayWithId.shift();
 
@@ -156,6 +160,9 @@ const WeatherDisplay = () => {
 
   const hourlyArrayWithId = hourly.map((obj, index) => ({ ...obj, id: index }));
   hourlyArrayWithId.shift();
+  hourlyArrayWithId.splice(-35);
+
+  // console.log(hourly);
 
   const hourlyDom = hourlyArrayWithId.map((hour) => {
     if (hour.message) {
@@ -164,6 +171,7 @@ const WeatherDisplay = () => {
     return (
       <Hourly
         key={hour.id}
+        tz={timezoneFromData}
         dt={hour.dt}
         temp={hour.temp}
         icon={hour.weather[0].icon}

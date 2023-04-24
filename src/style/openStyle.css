@@ -5,17 +5,24 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-}
-
-.main {
-  height: 100vh;
-  width: 97vw;
-  color: #fff;
+  height: 100%;
 }
 
 /* Styles for screens smaller than 600px (mobile) */
 @media screen and (max-width: 600px) {
+  .main {
+    width: 97vw;
+    color: #fff;
+  }
+
+  .mainError {
+    height: 100vh;
+    width: 97vw;
+    color: #fff;
+  }
+
   #loadingPage {
+    color: #fff;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -29,6 +36,11 @@ body {
     font-weight: 700;
   }
 
+  #errorMessage {
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
   .searchForm {
     display: flex;
     flex-direction: row;
@@ -40,11 +52,16 @@ body {
     font-weight: 600;
   }
 
+  #inputField {
+    padding: 0.2rem;
+  }
+
   #howToSearch {
     font-size: 0.6rem;
   }
 
   .weather-container {
+    margin: 0.5rem;
     display: grid;
     grid-template-areas:
       "main-info secondary-info"
@@ -99,7 +116,6 @@ body {
     flex-direction: row;
     overflow: scroll;
     align-items: center;
-    justify-content: center;
   }
 
   .weeklyWeather {
@@ -111,10 +127,277 @@ body {
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 601px) and (max-width: 1023px) {
   /* Styles for tablets */
+
+  .main {
+    width: 97vw;
+    color: #fff;
+  }
+
+  .mainError {
+    height: 100vh;
+    width: 97vw;
+    color: #fff;
+  }
+
+  #loadingPage {
+    color: #fff;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #loadingInfo {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  #errorMessage {
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .searchForm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #labelForecast {
+    font-weight: 600;
+    margin: 0.2rem;
+    font-size: 1.5rem;
+  }
+
+  #inputField {
+    margin: 0.2rem;
+    width: 50%;
+    height: 1.5rem;
+    padding: 0.2rem;
+  }
+
+  #submitButton {
+    margin: 0.2rem;
+    height: 1.7rem;
+  }
+
+  #howToSearch {
+    font-size: 1rem;
+  }
+
+  .weather-container {
+    margin: 0.5rem;
+    font-size: 2rem;
+    display: grid;
+    grid-template-areas:
+      "main-info secondary-info"
+      "main-info secondary-info"
+      "weather-icon dateAndTime-container";
+  }
+
+  .main-info {
+    grid-area: main-info;
+    font-weight: 600;
+  }
+
+  .secondary-info {
+    grid-area: secondary-info;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .weather-icon {
+    width: 60%;
+    grid-area: weather-icon;
+  }
+
+  .dateAndTime-container {
+    grid-area: dateAndTime-container;
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 600;
+    padding-top: 1rem;
+  }
+
+  .dailyAndHourly-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .hourlyDiv-container {
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    align-items: center;
+  }
+
+  .hourlyWeather {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+  }
+
+  #iconOfHour {
+    max-width: 85px;
+  }
+
+  .dailyDiv-container {
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .weeklyWeather {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+  }
 }
 
 @media screen and (min-width: 1024px) {
   /* Styles for desktops */
+  .main {
+    width: 97vw;
+    color: #fff;
+  }
+
+  .mainError {
+    height: 97vh;
+    width: 97vw;
+    color: #fff;
+  }
+
+  #loadingPage {
+    color: #fff;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #loadingInfo {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  #errorMessage {
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .searchForm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #labelForecast {
+    font-weight: 600;
+    margin: 0.2rem;
+    font-size: 1.5rem;
+  }
+
+  #inputField {
+    margin: 0.2rem;
+    width: 50%;
+    height: 1.5rem;
+    padding: 0.2rem;
+  }
+
+  #submitButton {
+    margin: 0.2rem;
+    height: 1.7rem;
+  }
+
+  #howToSearch {
+    font-size: 0.7rem;
+  }
+
+  .weather-container {
+    margin: 0.5rem;
+    font-size: 1rem;
+    display: grid;
+    grid-template-areas:
+      "main-info secondary-info"
+      "main-info secondary-info"
+      "weather-icon dateAndTime-container";
+  }
+
+  .main-info {
+    grid-area: main-info;
+    font-weight: 600;
+  }
+
+  .secondary-info {
+    grid-area: secondary-info;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .weather-icon {
+    width: 100px;
+    grid-area: weather-icon;
+  }
+
+  .dateAndTime-container {
+    grid-area: dateAndTime-container;
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 600;
+    padding-top: 1rem;
+  }
+
+  .dailyAndHourly-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hourlyDiv-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hourlyWeather {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 85px;
+  }
+
+  .dailyDiv-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .weeklyWeather {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 85px;
+  }
 }

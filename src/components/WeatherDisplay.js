@@ -33,7 +33,7 @@ const WeatherDisplay = () => {
       const data = await response.json();
       //check for error 404
       if (data.cod === "404") {
-        setError("city not found, please try again");
+        setError("City not found, please try again");
         setWeatherData(null);
       } else {
         setError(null);
@@ -44,8 +44,6 @@ const WeatherDisplay = () => {
         const secondeResponse = await fetch(
           `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=alerts,current,minutely&appid=${weatherK}`
         );
-
-        // https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 
         const secondData = await secondeResponse.json();
         setHourlyDailyWeather(secondData);
@@ -105,34 +103,36 @@ const WeatherDisplay = () => {
   //check for errors
   if (error) {
     return (
-      <div className="formAndAll">
-        <form onSubmit={handleSubmit}>
-          <label>
-            Forecast
+      <div className="mainError">
+        <div className="forecastForm">
+          <form className="searchForm" onSubmit={handleSubmit}>
+            <label id="labelForecast">Forecast</label>
             <input
+              id="inputField"
               type="text"
               value={location}
               required
               minLength="3"
               maxLength="15"
               onChange={handleLocationChange}
+              placeholder="Search"
             ></input>
-          </label>
-          <button type="submit">
-            Search
-            <img
-              alt="search icon"
-              width={15}
-              height={15}
-              src="https://www.pinclipart.com/picdir/middle/395-3952831_search-search-icon-vector-png-clipart.png"
-            />
-          </button>
-          <p>
+            <button id="submitButton" type="submit">
+              <img
+                id="searchImg"
+                alt="search icon"
+                width={15}
+                height={15}
+                src="https://www.pinclipart.com/picdir/middle/395-3952831_search-search-icon-vector-png-clipart.png"
+              />
+            </button>
+          </form>
+          <p id="howToSearch">
             for a more precise location or if you don't find what you're looking
             for enter ",COUNTRY" ex. `Rome,IT`
           </p>
-        </form>
-        <h1>{error}</h1>
+          <p id="errorMessage">{error}</p>
+        </div>
       </div>
     );
   }

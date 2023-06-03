@@ -98,12 +98,13 @@ body {
     display: flex;
     flex-direction: column;
     width: 95vw;
+    gap: 1rem;
   }
 
   .hourlyDiv-container {
     display: flex;
     flex-direction: row;
-    overflow: scroll;
+    overflow: overlay;
     align-items: center;
   }
 
@@ -114,7 +115,7 @@ body {
   .dailyDiv-container {
     display: flex;
     flex-direction: row;
-    overflow: scroll;
+    overflow: overlay;
     align-items: center;
   }
 
@@ -228,11 +229,12 @@ body {
   .dailyAndHourly-container {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
   }
   .hourlyDiv-container {
     display: flex;
     flex-direction: row;
-    overflow: scroll;
+    overflow: overlay;
     align-items: center;
   }
 
@@ -252,7 +254,7 @@ body {
   .dailyDiv-container {
     display: flex;
     flex-direction: row;
-    overflow: scroll;
+    overflow: overlay;
     align-items: center;
     justify-content: center;
   }
@@ -367,6 +369,7 @@ body {
   .dailyAndHourly-container {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
   }
 
   .hourlyDiv-container {

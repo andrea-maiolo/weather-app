@@ -162,8 +162,6 @@ const WeatherDisplay = () => {
   hourlyArrayWithId.shift();
   hourlyArrayWithId.splice(-35);
 
-  // console.log(hourly);
-
   const hourlyDom = hourlyArrayWithId.map((hour) => {
     if (hour.message) {
       return;

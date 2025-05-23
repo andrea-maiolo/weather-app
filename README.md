@@ -2,6 +2,9 @@
 
 This weather application is a web-based tool that provides real-time weather information for locations around the world. It's designed to help users check the current weather conditions, forecasts, and other related information.
 
+## Update
+This project is no longer available
+
 ## Table of Contents
 
 - [Demo](#demo)
